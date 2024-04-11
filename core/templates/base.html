@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-CL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css_bs/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>{% block title %} {% endblock %} </title>
+</head>
+
+<body>
+    <!-- Barra de navegaciónn -->
+    <nav class="navbar navbar-expand-lg w-100 border-bottom">
+        <div class="container-fluid">
+            <!-- Logo  -->
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'img/logo.png' %}" style="height: 50px" />
+
+            </a>
+            <!-- Boton para abrir y cerrar barra de navegación  -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Menú -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="w-100 navbar-nav mb-2 mb-lg-0 d-flex justify-content-end pe-lg-5">
+                    <!-- Categorias -->
+                    <li class="nav-item col-12 col-lg-2">
+                        <a class="nav-link active text-black text-center" aria-current="page" href="#">Categorías</a>
+                    </li>
+                    <!-- Registro de usuario -->
+                    {% if user.is_anonymous %}
+                    <li class="nav-item col-12 col-lg-2">
+                        <a class="nav-link text-black text-center" href="/registro">Registro</a>
+                    </li>
+                    {% endif %}
+                    <!-- Iniciar sesion -->
+                    {% if user.is_anonymous %}
+                    <li class="nav-item col-12 col-lg-2">
+                        <a class="nav-link text-black text-center" href="/inicioSesion">Iniciar sesion</a>
+                    </li>
+                    {% endif %}
+                    <!-- Perfil -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item col-12 col-lg-2">
+                        <a class="nav-link text-black text-center" href="/perfil">Perfil</a>
+                    </li>
+                    {% endif %}
+                    <!-- Carro -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item col-12 col-lg-2">
+                        <a class="nav-link text-black text-center" href="#">Carro</a>
+                    </li>
+                    {% endif %}
+                    <!-- Salir -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item col-12 col-lg-2">
+                        <a class="nav-link text-black text-center" href="/cerrarSesion">Salir</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %} {% endblock %}
+
+    <footer class="py-5 mt-5 border-top">
+        <p id="" class="text-center text-body-secondary">CHILE, SANTIAGO DE CHILE | FONO:987654321 | EMAIL:
+            CONTACTO@PLANTASIA.CL</p>
+        <p id="" class="text-center text-body-secondary">COPYRIGHT 2024 PLANTASIA</p>
+    </footer>
+
+    <script src="{% static 'js_bs/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

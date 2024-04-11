@@ -1,0 +1,7 @@
+.portada {
+    background-image: url('../img/img_plantas01.jpg');
+    height: 90vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
