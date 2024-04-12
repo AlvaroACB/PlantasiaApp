@@ -130,3 +130,8 @@ LOGIN_URL = '/registro'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ROLES = (
+    ('admin', 'Administrador'),
+    ('cliente', 'Cliente'),
+)

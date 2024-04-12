@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css_bs/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/categorias.css' %}">
     <title>{% block title %} {% endblock %} </title>
 </head>
 
@@ -30,7 +31,7 @@
                 <ul class="w-100 navbar-nav mb-2 mb-lg-0 d-flex justify-content-end pe-lg-5">
                     <!-- Categorias -->
                     <li class="nav-item col-12 col-lg-2">
-                        <a class="nav-link active text-black text-center" aria-current="page" href="#">Categorías</a>
+                        <a class="nav-link active text-black text-center" aria-current="page" href="/categorias">Categorías</a>
                     </li>
                     <!-- Registro de usuario -->
                     {% if user.is_anonymous %}

@@ -1,0 +1,15 @@
+.imagen{
+    display: block;
+    width: 80%;
+    margin: 0;
+    height: auto;
+    border-radius: 15px;
+}
+
+.imagen1{
+    display: block;
+    width: 50%;
+    margin: 0;
+    height: auto;
+    border-radius: 15px;
+}

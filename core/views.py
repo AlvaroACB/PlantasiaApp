@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import FormRegistro, FormInicioSesion
+from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+
 
 def index(request):
     return render(request, 'index.html')
@@ -56,7 +58,9 @@ def inicioSesion(request):
         if usuario is None:
             return render(request, 'inicioSesion.html', datosErr)
         else:
-	  #2
+	  #2    
+            profile = UserProfile.objects.get(user=usuario)
+            request.session['perfil'] = profile.role
             login(request, usuario)
             return redirect('/perfil')
     return render(request, 'inicioSesion.html', datos)
@@ -64,3 +68,24 @@ def inicioSesion(request):
 def cerrarSesion(request):
     logout(request)
     return redirect('/')
+
+def categorias(request):
+    return render(request, 'categorias.html')
+
+def interior(request):
+    return render(request, 'productos/interior.html')
+
+def exterior(request):
+    return render(request, 'productos/exterior.html')
+
+def suculentas(request):
+    return render(request, 'productos/suculentas.html')
+
+def carnivoras(request):
+    return render(request, 'productos/carnivoras.html')
+
+def huerto(request):
+    return render(request, 'productos/huerto.html')
+
+def insumos(request):
+    return render(request, 'productos/insumos.html')

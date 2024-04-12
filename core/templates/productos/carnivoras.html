@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %} Plantas carnivoras {% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="row w-100 d-flex mt-5 mb-3">
+    <div class="m-auto col-9">
+        <h2>Plantas carnivoras</h2>
+    </div>
+</div>
+
+<div class="row w-100 mb-5">
+    <div class="col-9 d-flex justify-content-between flex-wrap m-auto">
+        <div class="contenedor col-12 col-md-5 col-lg-3 mb-4 mx-3">
+            <img src="{% static '/img/img_plantas_interior.png' %}" alt="Avatar" class="imagen1">
+            <h3 class="titulo">Planta 1</h3>
+            <p>descripcion producto...</p>
+            <h5>Valor: $1.990</h5>
+            <button type="button" class="btn btn-success">Agregar al carrito</button>
+            
+        </div>
+
+        <div class="contenedor col-12 col-md-5 col-lg-3 mb-4 mx-3">
+            <img src="{% static '/img/img_plantas_exterior.png' %}" alt="Avatar" class="imagen1">
+            <h3 class="titulo">Planta 2</h3>
+            <p>descripcion producto...</p>
+            <h5>Valor: $1.990</h5>
+            <button type="button" class="btn btn-success">Agregar al carrito</button>
+            </a>
+        </div>
+
+        <div class="contenedor col-12 col-md-5 col-lg-3 mb-4 mx-3">
+            <img src="{% static '/img/img_suculenta.png' %}" alt="Avatar" class="imagen1">
+            <h3 class="titulo">Planta 3</h3>
+            <p>descripcion producto...</p>
+            <h5>Valor: $1.990</h5>
+            <button type="button" class="btn btn-success">Agregar al carrito</button>
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
