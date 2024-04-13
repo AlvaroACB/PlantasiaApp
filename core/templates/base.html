@@ -31,7 +31,7 @@
                 <ul class="w-100 navbar-nav mb-2 mb-lg-0 d-flex justify-content-end pe-lg-5">
                     <!-- Categorias -->
                     <li class="nav-item col-12 col-lg-2">
-                        <a class="nav-link active text-black text-center" aria-current="page" href="/categorias">Categorías</a>
+                        <a class="nav-link active text-black text-center" aria-current="page" href="{% url 'categorias' %}">Categorías</a>
                     </li>
                     <!-- Registro de usuario -->
                     {% if user.is_anonymous %}

@@ -5,7 +5,7 @@ urlpatterns = [
         path('', index),
         path('perfil/', perfil),
         path('registro/', registro),
-        path('categorias/', categorias),
+        path('categorias/', categorias, name='categorias'),
         path('productos/interior/', interior),
         path('productos/exterior/', exterior),
         path('productos/suculentas/', suculentas),

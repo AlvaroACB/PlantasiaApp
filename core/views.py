@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import FormRegistro, FormInicioSesion
-from .models import UserProfile
+from .models import UserProfile, Categoria
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -70,7 +70,8 @@ def cerrarSesion(request):
     return redirect('/')
 
 def categorias(request):
-    return render(request, 'categorias.html')
+    categorias = Categoria.objects.all()
+    return render(request, 'categorias.html', {'categorias': categorias})
 
 def interior(request):
     return render(request, 'productos/interior.html')
