@@ -74,7 +74,7 @@ def categorias(request):
     return render(request, 'categorias.html', {'categorias': categorias})
 
 def productos(request, id):
-    productos = Producto.objects.filter(id_categoria = id)
+    productos = Producto.objects.filter(categoria_id = id)
     categoria = Categoria.objects.get(pk = id)
     return render(request, 'productos.html', {'productos': productos, 'categoria': categoria})
 
