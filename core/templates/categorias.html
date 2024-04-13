@@ -14,7 +14,7 @@
     <div class="col-9 d-flex justify-content-between flex-wrap m-auto">
         {% for categoria in categorias %}
         <div class="contenedor col-12 col-md-5 col-lg-3 mb-4 mx-3">
-            <a class="link-success link-underline-opacity-0 link-underline-opacity-100-hover" href="#">
+            <a class="link-success link-underline-opacity-0 link-underline-opacity-100-hover" href="{% url 'productos' categoria.id_categoria %}">
             <img src="{% static '/img/img_plantas_interior.png' %}" alt="Avatar" class="imagen">
             <h3 class="titulo">{{categoria.nombre_categoria}}</h3>
             </a>

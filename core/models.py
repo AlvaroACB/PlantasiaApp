@@ -16,3 +16,13 @@ class Categoria(models.Model):
 
     def __str__(self):
         return self.nombre_categoria
+
+class Producto(models.Model):
+    id_producto = models.AutoField(primary_key=True)
+    nombre_producto = models.CharField(max_length=50)
+    desc_producto = models.CharField(max_length=100)
+    precio = models.PositiveIntegerField(default=0)
+    id_categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre_producto
