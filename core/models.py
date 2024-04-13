@@ -33,7 +33,7 @@ class Producto(models.Model):
     nombre_prod = models.CharField(max_length=25)
     descripcion_prod = models.CharField(max_length=300)
     valor_prod = models.IntegerField()
-    categoria_id = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     class Meta:
         managed = False
