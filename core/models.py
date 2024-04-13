@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.contrib.auth.models import User
 # Create your models here.
 
 class UserProfile(models.Model):
@@ -11,18 +12,40 @@ class UserProfile(models.Model):
         return self.user.username + ' - ' + self.role
     
 class Categoria(models.Model):
-    id_categoria = models.AutoField(primary_key=True)
-    nombre_categoria = models.CharField(max_length=50)
+    categoria_id = models.IntegerField(primary_key=True)
+    nombre_categ = models.CharField(max_length=25)
 
-    def __str__(self):
-        return self.nombre_categoria
+    class Meta:
+        managed = False
+        db_table = 'categoria'
+
+class Compra(models.Model):
+    compra_id = models.IntegerField(primary_key=True)
+    id = models.ForeignKey(User, on_delete=models.CASCADE)
+    estado_compra = models.CharField(max_length=25)
+
+    class Meta:
+        managed = False
+        db_table = 'compra'
 
 class Producto(models.Model):
-    id_producto = models.AutoField(primary_key=True)
-    nombre_producto = models.CharField(max_length=50)
-    desc_producto = models.CharField(max_length=100)
-    precio = models.PositiveIntegerField(default=0)
-    id_categoria = models.ForeignKey("Categoria", on_delete=models.CASCADE)
+    producto_id = models.IntegerField(primary_key=True)
+    nombre_prod = models.CharField(max_length=25)
+    descripcion_prod = models.CharField(max_length=300)
+    valor_prod = models.IntegerField()
+    categoria_id = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.nombre_producto
+    class Meta:
+        managed = False
+        db_table = 'producto'
+        
+class DetalleCompra(models.Model):
+    compra_id = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'detalle_compra'
+        
+ 
