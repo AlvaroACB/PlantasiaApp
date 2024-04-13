@@ -78,6 +78,11 @@ def productos(request, id):
     categoria = Categoria.objects.get(pk = id)
     return render(request, 'productos.html', {'productos': productos, 'categoria': categoria})
 
+def detalle(request, id):
+    productos = Producto.objects.get(producto_id = id)
+    print(productos)
+    return render(request, 'detalle.html', {'productos': productos})
+
 def interior(request):
     return render(request, 'productos/interior.html')
 
