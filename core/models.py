@@ -14,6 +14,7 @@ class UserProfile(models.Model):
 class Categoria(models.Model):
     categoria_id = models.IntegerField(primary_key=True)
     nombre_categ = models.CharField(max_length=25)
+    img_categ = models.ImageField(upload_to="categorias", null=True)
 
     class Meta:
         managed = False
