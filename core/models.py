@@ -35,6 +35,7 @@ class Producto(models.Model):
     descripcion_prod = models.CharField(max_length=300)
     valor_prod = models.IntegerField()
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    stock = models.IntegerField()
     img_prod = models.ImageField(upload_to="productos", null=True)
 
     class Meta:

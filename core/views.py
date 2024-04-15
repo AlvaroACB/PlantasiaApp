@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import FormRegistro, FormInicioSesion, FormCarrito, FormModificarUsuario, FormRecuperar
+from .forms import FormRegistro, FormInicioSesion, FormCarrito, FormModificarUsuario, FormRecuperar, FormModInv
 from .models import UserProfile, Categoria, Producto, Carrito
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -136,3 +136,23 @@ def recuperar(request):
             return render(request, 'recuperar.html', datosErr)
     return render(request, 'recuperar.html', datos)
  
+def inventario(request):
+    productos = Producto.objects.all()
+    datos = {
+        'productos': productos
+    }
+    return render(request, 'inventario.html', datos)
+
+def modificarInventario(request, id):
+    producto = Producto.objects.get(producto_id=id) 
+    datos = { 'producto': producto }
+    if request.method == 'POST':
+        formulario = FormModInv(data=request.POST, instance=producto)
+        if formulario.is_valid():
+            formulario.save()
+    return render(request, 'modificarInventario.html', datos)
+
+def eliminarInventario(request, id):
+    producto = Producto.objects.get(producto_id=id)
+    producto.delete()
+    return redirect("/inventario")
