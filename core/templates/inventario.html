@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Carrito {% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row w-100 d-flex">
+        <div class="col-9 m-auto">
+            <h2>Inventario</h2>
+            <table class="w-100">
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                {% for producto in productos %}
+                <tr class="">
+                    <td>{{ producto.nombre_prod }}</td>
+                    <td>{{ producto.valor_prod }}</td>
+                    <td>{{ producto.stock }}</td>
+                    <td><a href="{% url 'modificarInventario' producto.producto_id %}"
+                            class="btn btn-success py-1">Modificar</a></td>
+                    <td><a href="{% url 'eliminarInventario' producto.producto_id %}"
+                            class="btn btn-danger">Eliminar</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
