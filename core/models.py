@@ -22,7 +22,7 @@ class Categoria(models.Model):
 
 class Compra(models.Model):
     compra_id = models.IntegerField(primary_key=True)
-    id = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     estado_compra = models.CharField(max_length=25)
 
     class Meta:
@@ -42,8 +42,8 @@ class Producto(models.Model):
         db_table = 'producto'
         
 class DetalleCompra(models.Model):
-    compra_id = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    producto_id = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
 
     class Meta:

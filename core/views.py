@@ -34,6 +34,8 @@ def registro(request):
                                                 password=request.POST["password"],
                                                 )
                 user.save()
+                profile = UserProfile.objects.create(user=user, role = 'Cliente')
+                profile.save()
                 username1 = request.POST["username"]
                 password1 = request.POST["password"]
                 usuario1 = authenticate(request, username=username1, password=password1)
