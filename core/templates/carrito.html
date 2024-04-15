@@ -7,6 +7,7 @@
     <div class="row d-flex">
         <div class="col-9 m-auto d-flex flex-column">
             <h2 class="mb-3">Carrito de compras</h2>
+            {% if items.exists %}
             <table class=" w-100 mb-5">
                 <tr class="h5">
                     <td class="py-2">Producto</td>
@@ -21,6 +22,9 @@
                 {% endfor %}
             </table>
             <button class="btn btn-success col-4 m-auto">Realizar compra</button>
+            {% else %}
+            <h3 class="text-warning mb-3"> El carro está vacio. </h3>
+            {% endif %}
         </div>
 
     </div>
