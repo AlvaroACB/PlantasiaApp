@@ -6,18 +6,40 @@
 {% load static %}
 <div class="row w-100 d-flex mt-5 mb-3">
     <div class="m-auto col-9">
-        <h2></h2>
     </div>
 </div>
 
 <div class="row w-100 mb-5">
-    <div class="col-9 d-flex justify-content-between flex-wrap m-auto">
-        <div class="contenedor col-12 col-md-5 col-lg-3 mb-4 mx-3">
+    <div class="col-9 d-flex flex-column flex-md-row justify-content-evenly m-auto">
+        <div class="col-12 col-md-8 col-lg-6 d-flex justify-content-center ">
             <img src="{{ productos.img_prod.url }}" alt="Avatar" class="imagen1">
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 ">
             <h3 class="titulo">{{ productos.nombre_prod }}</h3>
-            <p>{{ productos.descripcion_prod }}</p>
-            <h5>${{ productos.valor_prod }}</h5>
-            <button type="button" class="btn btn-success" href="">Agregar al carrito</button>
+            <p>Descripción: {{ productos.descripcion_prod }}</p>
+            <p>Valor: ${{ productos.valor_prod }}</p>
+
+            <form method="POST" class="d-flex flex-column justify-content-center">
+                {% csrf_token %}
+                <input name="nombre_prod" value="{{ productos.nombre_prod }}" style="display: none;">
+                <input name="valor_prod" value="{{ productos.valor_prod }}" style="display: none;">
+                <input name="producto" value="{{ productos.producto_id }}" style="display: none;">
+                <input name="usuario" value="{{ user.id }}" style="display: none;">
+                <label for="cantidad_prod">Cantidad:</label>
+                <input name="cantidad_prod" type="number" value="1" class="mb-3">
+                {% if user.is_authenticated %}
+                <button type="submit" class="btn btn-success añadirCarro" href="{% url 'detalle' %}">
+                    Agregar al
+                    carrito
+                </button>
+                {% endif %}
+                {% if user.is_anonymous %}
+                <a type="" class="btn btn-success" href="/registro">
+                    Agregar al
+                    carritoo
+                </a>
+                {% endif %}
+            </form>
         </div>
     </div>
 

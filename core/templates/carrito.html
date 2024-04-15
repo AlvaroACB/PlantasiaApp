@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Carrito {% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row d-flex">
+        <div class="col-9 m-auto d-flex flex-column">
+            <h2 class="mb-3">Carrito de compras</h2>
+            <table class=" w-100 mb-5">
+                <tr class="h5">
+                    <td class="py-2">Producto</td>
+                    <td class="py-2">Cantidad</td>
+                </tr>
+                {% for item in items %}
+                <tr>
+                    <td class="py-2">{{item.nombre_prod}}</td>
+                    <td class="py-2">{{item.cantidad_prod}}</td>
+                    <td class="py-2"><a href="{% url 'eliminar' item.id %}">Eliminar</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="btn btn-success col-4 m-auto">Realizar compra</button>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import FormRegistro, FormInicioSesion
-from .models import UserProfile, Categoria, Producto
+from .forms import FormRegistro, FormInicioSesion, FormCarrito
+from .models import UserProfile, Categoria, Producto, Carrito
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -53,14 +53,12 @@ def inicioSesion(request):
         'error': "Usuario o contraseña incorrectos."
     }
     if request.method == 'POST':
-    #1
         usuario = authenticate(request, username=request.POST['username'], password=request.POST['password'])
         if usuario is None:
             return render(request, 'inicioSesion.html', datosErr)
         else:
-	  #2    
-            profile = UserProfile.objects.get(user=usuario)
-            request.session['perfil'] = profile.role
+            # profile = UserProfile.objects.get(user=usuario)
+            # request.session['perfil'] = profile.role
             login(request, usuario)
             return redirect('/perfil')
     return render(request, 'inicioSesion.html', datos)
@@ -80,7 +78,9 @@ def productos(request, id):
 
 def detalle(request, id):
     productos = Producto.objects.get(producto_id = id)
-    print(productos)
+    if request.method == 'POST':
+        formulario = FormCarrito(request.POST) 
+        formulario.save()     
     return render(request, 'detalle.html', {'productos': productos})
 
 def interior(request):
@@ -100,3 +100,17 @@ def huerto(request):
 
 def insumos(request):
     return render(request, 'productos/insumos.html')
+
+@login_required
+def carrito(request):
+    usuario = request.user.id
+    items = Carrito.objects.filter(usuario=usuario)
+    datos = {
+        'items': items
+    }
+    return render(request, 'carrito.html', datos)
+
+def eliminar(request, id):
+    item = Carrito.objects.get(id=id)
+    item.delete()
+    return redirect('/carrito')

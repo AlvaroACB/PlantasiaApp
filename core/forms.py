@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.models import User
-from .models import Producto
+from .models import Producto, Carrito
 
 class FormRegistro(ModelForm):
     class Meta:
@@ -11,3 +11,8 @@ class FormInicioSesion(ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class FormCarrito(ModelForm):
+    class Meta:
+        model = Carrito
+        fields = ['nombre_prod', 'valor_prod', 'cantidad_prod', 'producto', 'usuario']

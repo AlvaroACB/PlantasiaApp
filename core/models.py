@@ -50,3 +50,9 @@ class DetalleCompra(models.Model):
         managed = False
         db_table = 'detalle_compra'
         
+class Carrito(models.Model):
+    nombre_prod = models.CharField(max_length=25)
+    valor_prod = models.IntegerField()
+    cantidad_prod = models.IntegerField()
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
