@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import FormRegistro, FormInicioSesion, FormCarrito
+from .forms import FormRegistro, FormInicioSesion, FormCarrito, FormModificarUsuario
 from .models import UserProfile, Categoria, Producto, Carrito
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -57,8 +57,8 @@ def inicioSesion(request):
         if usuario is None:
             return render(request, 'inicioSesion.html', datosErr)
         else:
-            # profile = UserProfile.objects.get(user=usuario)
-            # request.session['perfil'] = profile.role
+            profile = UserProfile.objects.get(user=usuario)
+            request.session['perfil'] = profile.role
             login(request, usuario)
             return redirect('/perfil')
     return render(request, 'inicioSesion.html', datos)
@@ -114,3 +114,14 @@ def eliminar(request, id):
     item = Carrito.objects.get(id=id)
     item.delete()
     return redirect('/carrito')
+
+
+def modificarPerfil(request):
+    usuario = User.objects.get(id=request.user.id)
+    if request.method == 'POST':
+        formulario = FormModificarUsuario(data=request.POST, instance=usuario)
+        if formulario.is_valid():
+            formulario.save()
+            print("listooo")
+            return redirect('/perfil')
+    return render(request, 'modificarPerfil.html')

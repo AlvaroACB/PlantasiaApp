@@ -5,10 +5,13 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row w-100 d-flex mt-5">
-        <div class="m-auto col-9">
+        <div class="m-auto col-6">
             <h1> Bienvenido {{user.first_name}}</h1>
             <div class="border rounded p-3">
-                <h3>Mis datos:</h3>
+                <div class="d-flex justify-content-between">
+                    <h3>Mis datos:</h3>
+                    <a href="/modificarPerfil" class="btn btn-success">Modificar</a>
+                </div>
                 <p>Nombre de usuario: {{user.username}}</p>
                 <p>Nombre: {{user.first_name}}</p>
                 <p>Apellido: {{user.last_name}}</p>

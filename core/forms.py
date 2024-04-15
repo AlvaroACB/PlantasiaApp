@@ -12,6 +12,11 @@ class FormInicioSesion(ModelForm):
         model = User
         fields = ['username', 'password']
 
+class FormModificarUsuario(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']
+
 class FormCarrito(ModelForm):
     class Meta:
         model = Carrito
