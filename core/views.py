@@ -81,9 +81,21 @@ def productos(request, id):
 
 def detalle(request, id):
     productos = Producto.objects.get(producto_id = id)
+    hay_producto_en_carro = Carrito.objects.filter(producto = id)
     if request.method == 'POST':
-        formulario = FormCarrito(request.POST) 
-        formulario.save()     
+        formulario = FormCarrito(request.POST)
+        if formulario.is_valid():
+            if not hay_producto_en_carro.exists():
+                formulario.save()
+            else:
+                cantidad_agregada = formulario.cleaned_data.get('cantidad_prod')
+                print(cantidad_agregada)
+                cantidad_nueva = 0
+                for item in hay_producto_en_carro:
+                    cantidad_nueva = cantidad_agregada + item.cantidad_prod
+                print(cantidad_nueva)
+                Carrito.objects.filter(producto = id).update(cantidad_prod= cantidad_nueva)
+                 
     return render(request, 'detalle.html', {'productos': productos})
 
 @login_required
