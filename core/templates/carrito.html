@@ -17,7 +17,7 @@
                 <tr>
                     <td class="py-2">{{item.nombre_prod}}</td>
                     <td class="py-2">{{item.cantidad_prod}}</td>
-                    <td class="py-2"><a href="{% url 'eliminar' item.id %}">Eliminar</a></td>
+                    <td class="py-2"><a class="btn btn-success" href="{% url 'eliminar' item.id %}">Eliminar</a></td>
                 </tr>
                 {% endfor %}
             </table>
