@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import FormRegistro, FormInicioSesion, FormCarrito, FormModificarUsuario
+from .forms import FormRegistro, FormInicioSesion, FormCarrito, FormModificarUsuario, FormRecuperar
 from .models import UserProfile, Categoria, Producto, Carrito
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def index(request):
@@ -83,24 +84,6 @@ def detalle(request, id):
         formulario.save()     
     return render(request, 'detalle.html', {'productos': productos})
 
-def interior(request):
-    return render(request, 'productos/interior.html')
-
-def exterior(request):
-    return render(request, 'productos/exterior.html')
-
-def suculentas(request):
-    return render(request, 'productos/suculentas.html')
-
-def carnivoras(request):
-    return render(request, 'productos/carnivoras.html')
-
-def huerto(request):
-    return render(request, 'productos/huerto.html')
-
-def insumos(request):
-    return render(request, 'productos/insumos.html')
-
 @login_required
 def carrito(request):
     usuario = request.user.id
@@ -125,3 +108,29 @@ def modificarPerfil(request):
             print("listooo")
             return redirect('/perfil')
     return render(request, 'modificarPerfil.html')
+
+def recuperar(request):
+    datos = {
+        'form': FormRecuperar()
+    }
+    datosErr = {
+        'form': FormRecuperar(),
+        'error': "Correo inexistente."
+    }
+    if request.method == 'POST':
+        email = request.POST['email']
+        try:
+            email_recuperar = User.objects.get(email=email)
+            x=email_recuperar.email
+        except ObjectDoesNotExist:
+            return render(request, 'recuperar.html', datosErr)
+        if email ==  x:
+            datos = {
+            'form': FormRecuperar(),
+            'error': "Su contraseña fue enviada a su correo"
+            }
+            return render(request, 'recuperar.html', datos)
+        else:
+            return render(request, 'recuperar.html', datosErr)
+    return render(request, 'recuperar.html', datos)
+ 

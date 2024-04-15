@@ -21,3 +21,8 @@ class FormCarrito(ModelForm):
     class Meta:
         model = Carrito
         fields = ['nombre_prod', 'valor_prod', 'cantidad_prod', 'producto', 'usuario']
+
+class FormRecuperar(ModelForm):
+    class Meta:
+        model = User
+        fields = ['email']
