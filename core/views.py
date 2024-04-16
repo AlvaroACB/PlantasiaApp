@@ -28,33 +28,47 @@ def registro(request):
     datos = {
         'form': FormRegistro()
     }
-    datosErr = {
+    datosErr1 = {
         'form': FormRegistro(),
         'error': "Las contraseñas no coinciden"
+    }
+    datosErr2 = {
+        'form': FormRegistro(),
+        'error': "La contraseña debe tener sobre 5 caracteres"
+    }
+    datosErr3 = {
+        'form': FormRegistro(),
+        'error': "La contraseña no puede tener más de 20 caracteres"
     }
     if request.method == 'GET':
             return render(request, 'registro.html', datos)
     else:
         if request.POST["password"] == request.POST["password2"]:
-            try:
-                user = User.objects.create_user(username=request.POST["username"],
-                                                first_name=request.POST["first_name"],
-                                                last_name=request.POST["last_name"],
-                                                email=request.POST["email"],
-                                                password=request.POST["password"],
-                                                )
-                user.save()
-                profile = UserProfile.objects.create(user=user, role = 'Cliente')
-                profile.save()
-                username1 = request.POST["username"]
-                password1 = request.POST["password"]
-                usuario1 = authenticate(request, username=username1, password=password1)
-                login(request, usuario1)
-                return redirect('/perfil')
-            except IntegrityError:
-                return render(request, 'registro.html', datos)
+            if len(request.POST["password"]) > 5:
+                if len(request.POST["password"]) < 21:
+                    try:
+                        user = User.objects.create_user(username=request.POST["username"],
+                                                        first_name=request.POST["first_name"],
+                                                        last_name=request.POST["last_name"],
+                                                        email=request.POST["email"],
+                                                        password=request.POST["password"],
+                                                        )
+                        user.save()
+                        profile = UserProfile.objects.create(user=user, role = 'Cliente')
+                        profile.save()
+                        username1 = request.POST["username"]
+                        password1 = request.POST["password"]
+                        usuario1 = authenticate(request, username=username1, password=password1)
+                        login(request, usuario1)
+                        return redirect('/perfil')
+                    except IntegrityError:
+                        return render(request, 'registro.html', datos)
+                else:
+                    return render(request, 'registro.html', datosErr3)
+            else:
+                return render(request, 'registro.html', datosErr2)
         else:
-            return render(request, 'registro.html', datosErr)
+            return render(request, 'registro.html', datosErr1)
 
 def inicioSesion(request):
     datos = {
