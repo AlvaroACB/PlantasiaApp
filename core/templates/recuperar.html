@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %} Restablecer Contraseña  {% endblock %}
+{% block title %} Restablecer Contraseña {% endblock %}
 
 {% block content %}
 <div class="row w-100 d-flex mt-5">
-    <div class="col-6 m-auto border rounded px-4 py-5 ">
-            <form class="d-flex flex-column align-items-center" action="" method="POST">
-                {% csrf_token %}
-                <h3>Ingresa tu correo para recuperar tu contraseña:</h3>
-                <div class="mb-3 col-10">
-                    <label for="email" class="form-label">Correo:</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="Correo" required>
-                </div>
+    <div class="col-10 col-md-8 col-lg-6 m-auto border rounded px-4 py-5 ">
+        <form class="d-flex flex-column align-items-center" action="" method="POST">
+            {% csrf_token %}
+            <h3>Ingresa tu correo para recuperar tu contraseña:</h3>
+            <div class="mb-3 col-10">
+                <label for="email" class="form-label">Correo:</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Correo" required>
+            </div>
 
-                <button class="btn btn-primary col-6">Enviar nueva contraseña</button>
+            <button class="btn btn-primary col-10 col-md-6">Enviar nueva contraseña</button>
 
-                <div class="my-3">
-                    {{error}}
-                </div>
-            </form>
+            <div class="my-3">
+                {{error}}
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
