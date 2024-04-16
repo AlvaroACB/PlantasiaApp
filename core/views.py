@@ -10,11 +10,19 @@ from .decorators import role_required
 
 
 def index(request):
-    return render(request, 'index.html')
+    perfil = request.session.get('perfil')
+    context = {
+        'perfil':perfil,
+    }
+    return render(request, 'index.html', context)
 
 @login_required
 def perfil(request):
-    return render(request, 'perfil.html')
+    perfil = request.session.get('perfil')
+    context = {
+        'perfil':perfil,
+    }
+    return render(request, 'perfil.html', context)
 
 def registro(request):
     datos = {
@@ -72,16 +80,32 @@ def cerrarSesion(request):
     return redirect('/')
 
 def categorias(request):
+    perfil = request.session.get('perfil')
     categorias = Categoria.objects.all()
-    return render(request, 'categorias.html', {'categorias': categorias})
+    context = {
+        'categorias': categorias,
+        'perfil':perfil,
+    }
+    return render(request, 'categorias.html', context)
 
 def productos(request, id):
     productos = Producto.objects.filter(categoria_id = id)
     categoria = Categoria.objects.get(pk = id)
-    return render(request, 'productos.html', {'productos': productos, 'categoria': categoria})
+    perfil = request.session.get('perfil')
+    context = {
+        'perfil':perfil,
+        'productos': productos,
+        'categoria': categoria
+    }
+    return render(request, 'productos.html', context)
 
 def detalle(request, id):
     productos = Producto.objects.get(producto_id = id)
+    perfil = request.session.get('perfil')
+    context = {
+        'perfil':perfil,
+        'productos':productos
+    }
     hay_producto_en_carro = Carrito.objects.filter(producto = id)
     if request.method == 'POST':
         formulario = FormCarrito(request.POST)
@@ -96,41 +120,48 @@ def detalle(request, id):
                     cantidad_nueva = cantidad_agregada + item.cantidad_prod
                 print(cantidad_nueva)
                 Carrito.objects.filter(producto = id).update(cantidad_prod= cantidad_nueva)
-                 
-    return render(request, 'detalle.html', {'productos': productos})
+           
+    return render(request, 'detalle.html', context)
 
 @login_required
 def carrito(request):
     usuario = request.user.id
     items = Carrito.objects.filter(usuario=usuario)
-    datos = {
-        'items': items
+    perfil = request.session.get('perfil')
+    context = {
+        'perfil':perfil,
+        'items':items,
     }
-    return render(request, 'carrito.html', datos)
+    return render(request, 'carrito.html', context)
 
 def eliminar(request, id):
     item = Carrito.objects.get(id=id)
     item.delete()
     return redirect('/carrito')
 
-
+@login_required
 def modificarPerfil(request):
     usuario = User.objects.get(id=request.user.id)
+    perfil = request.session.get('perfil')
+    context = {
+        'perfil':perfil,
+    }
     if request.method == 'POST':
         formulario = FormModificarUsuario(data=request.POST, instance=usuario)
         if formulario.is_valid():
             formulario.save()
             print("listooo")
             return redirect('/perfil')
-    return render(request, 'modificarPerfil.html')
+    return render(request, 'modificarPerfil.html', context)
 
 def recuperar(request):
+    perfil = request.session.get('perfil')
     datos = {
         'form': FormRecuperar()
     }
     datosErr = {
         'form': FormRecuperar(),
-        'error': "Correo inexistente."
+        'error': "Correo inexistente.",
     }
     if request.method == 'POST':
         email = request.POST['email']
@@ -151,16 +182,18 @@ def recuperar(request):
 
 @role_required('admin')
 def inventario(request):
+    perfil = request.session.get('perfil')
     productos = Producto.objects.all()
     datos = {
-        'productos': productos
+        'productos': productos, 'perfil':perfil,
     }
     return render(request, 'inventario.html', datos)
 
 @role_required('admin')
 def modificarInventario(request, id):
+    perfil = request.session.get('perfil')
     producto = Producto.objects.get(producto_id=id) 
-    datos = { 'producto': producto }
+    datos = { 'producto': producto, 'perfil':perfil, }
     if request.method == 'POST':
         formulario = FormModInv(data=request.POST, instance=producto)
         if formulario.is_valid():

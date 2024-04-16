@@ -58,10 +58,12 @@
                         <a class="nav-link text-black text-center" href="/carrito">Carro</a>
                     </li>
                     {% endif %}
+                    {% if perfil == 'admin' %}
                     <!-- Inventario -->
                     <li class="nav-item col-12 col-lg-2">
                         <a class="nav-link text-black text-center" href="/inventario">Inventario</a>
                     </li>
+                    {% endif %}
                     <!-- Salir -->
                     {% if user.is_authenticated %}
                     <li class="nav-item col-12 col-lg-2">
