@@ -15,6 +15,9 @@ class Categoria(models.Model):
     categoria_id = models.IntegerField(primary_key=True)
     nombre_categ = models.CharField(max_length=25)
     img_categ = models.ImageField(upload_to="categorias", null=True)
+    
+    def __str__(self):
+        return self.nombre_categ
 
     class Meta:
         managed = False
@@ -37,6 +40,9 @@ class Producto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     stock = models.IntegerField()
     img_prod = models.ImageField(upload_to="productos", null=True)
+
+    def __str__(self):
+        return self.nombre_prod
 
     class Meta:
         managed = False
