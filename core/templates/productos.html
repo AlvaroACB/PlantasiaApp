@@ -11,12 +11,12 @@
 </div>
 
 <div class="row w-100 mb-5">
-    <div class="col-9 d-flex justify-content-between flex-wrap m-auto">
+    <div class="col-10 col-md-9 d-flex justify-content-between flex-wrap m-auto">
         {% for producto in productos %}
         <div class="contenedor col-12 col-md-5 col-lg-3 mb-4 mx-3">
             <a class="link-success link-underline-opacity-0 link-underline-opacity-100-hover"
                 href="{% url 'detalle' producto.producto_id %}">
-                <img src="{{ producto.img_prod.url }}" alt="Avatar" class="imagen1">
+                <img src="{{ producto.img_prod.url }}" alt="Avatar" class="imagen1 w-75">
                 <h3 class="titulo">{{ producto.nombre_prod }}</h3>
                 <p>{{ producto.descripcion_prod }}</p>
                 <h5>${{ producto.valor_prod }}</h5>

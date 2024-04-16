@@ -5,14 +5,18 @@
 {% block content %}
 <div class="container-fluid mt-5">
     <div class="row w-100 d-flex">
-        <div class="col-9 m-auto">
+        <div class="col-10 col-md-9 m-auto">
             <h2>Producto {{ producto.nombre_prod}}</h2>
             <form class="d-flex flex-column" method="POST">
                 {% csrf_token %}
-                <input type="text" name="nombre_prod" value="{{ producto.nombre_prod }}">
-                <input type="text" name="descripcion_prod" value="{{ producto.descripcion_prod }}">
-                <input type="number" name="valor_prod" value="{{ producto.valor_prod }}">
-                <input type="number" name="stock" value="{{ producto.stock }}">
+                <label for="nombre_prod">Nombre producto:</label>
+                <input class="mb-3" type="text" name="nombre_prod" value="{{ producto.nombre_prod }}">
+                <label for="descripcion_prod">Descripción:</label>
+                <input class="mb-3" type="text" name="descripcion_prod" value="{{ producto.descripcion_prod }}">
+                <label for="valor_prod">Valor:</label>
+                <input class="mb-3" type="number" name="valor_prod" value="{{ producto.valor_prod }}">
+                <label for="stock">Stock:</label>
+                <input class="mb-3" type="number" name="stock" value="{{ producto.stock }}">
                 <button type="submit" class="btn btn-success">Actualizar</button>
             </form>
         </div>
