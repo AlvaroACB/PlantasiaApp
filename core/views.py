@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
+from .decorators import role_required
 
 
 def index(request):
@@ -147,7 +148,8 @@ def recuperar(request):
         else:
             return render(request, 'recuperar.html', datosErr)
     return render(request, 'recuperar.html', datos)
- 
+
+@role_required('admin')
 def inventario(request):
     productos = Producto.objects.all()
     datos = {
@@ -155,6 +157,7 @@ def inventario(request):
     }
     return render(request, 'inventario.html', datos)
 
+@role_required('admin')
 def modificarInventario(request, id):
     producto = Producto.objects.get(producto_id=id) 
     datos = { 'producto': producto }
@@ -164,6 +167,7 @@ def modificarInventario(request, id):
             formulario.save()
     return render(request, 'modificarInventario.html', datos)
 
+@role_required('admin')
 def eliminarInventario(request, id):
     producto = Producto.objects.get(producto_id=id)
     producto.delete()
