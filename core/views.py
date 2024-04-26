@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from .decorators import role_required
+import requests
 
 
 def index(request):
@@ -219,3 +220,16 @@ def eliminarInventario(request, id):
     producto = Producto.objects.get(producto_id=id)
     producto.delete()
     return redirect("/inventario")
+
+@login_required
+def apiPlantas(request):
+
+    url = "https://trefle.io/api/v1/plants?token=o8h_IB9Nj6X1MYdHSxNoTjRlmN-Tw6lYT6LWcUZh6Vc"
+    
+    response = requests.get(url)
+    
+    plantas = response.json().get('data', [])
+    context = {
+        'plantas': plantas
+    }
+    return render(request, 'apiPlantas.html', context)

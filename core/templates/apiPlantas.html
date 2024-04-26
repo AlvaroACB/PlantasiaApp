@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Carrito {% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row col-10 m-auto d-flex" id="planta">
+        <h2 class="h1 col-12 m-auto mb-5">Próximmente en catálogo</h2>
+        {% for planta in plantas %}
+        <div class="col-md-4 d-flex flex-column align-items-center mb-3">
+            <div class="card" style="width: 18rem;">
+                <img src="{{planta.image_url}}" style="height: 300px" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{planta.common_name}}</h5>
+                    <p>Nombre científico: {{planta.scientific_name}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
