@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.core.exceptions import ObjectDoesNotExist
 from .decorators import role_required
-import requests
+import requests 
 
 
 def index(request):
