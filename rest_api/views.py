@@ -54,7 +54,6 @@ def vista_categoria(request, id):
 		categoria.delete()
 		return Response(status=status.HTTP_204_NO_CONTENT)    
 
-#problema con producto.stock
 @csrf_exempt
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated,))
@@ -73,12 +72,12 @@ def lista_productos(request):
         else:
             print('error', serializer.errors)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#problema con producto.stock       
+     
 @api_view(['GET','PUT','PATCH','DELETE'])
 @permission_classes((IsAuthenticated,))
-def vista_produtos(request, id):
+def vista_productos(request, id):
 	try:
-		producto = Categoria.objects.get(pk=id)
+		producto = Producto.objects.get(pk=id)
 	except producto.DoesNotExist:
 		return Response(status=status.HTTP_404_NOT_FOUND)
 	if request.method == 'GET':
@@ -86,7 +85,7 @@ def vista_produtos(request, id):
 		return Response(serializer.data)
 	elif request.method == 'PUT' or request.method == 'PATCH':
 		data = JSONParser().parse(request)
-		serializer = ProductoSerializers(producto,data=data)
+		serializer = ProductoSerializers(producto, data=data)
 		if serializer.is_valid():
 			serializer.save()
 			return Response(serializer.data)
