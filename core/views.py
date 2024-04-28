@@ -110,16 +110,20 @@ def productos(request, id):
     context = {
         'perfil':perfil,
         'productos': productos,
-        'categoria': categoria
+        'categoria': categoria,
     }
     return render(request, 'productos.html', context)
 
 def detalle(request, id):
     productos = Producto.objects.get(producto_id = id)
     perfil = request.session.get('perfil')
+    url = "https://mindicador.cl/api"
+    response = requests.get(url)
+    dolar = response.json().get('dolar_intercambio', [])
     context = {
         'perfil':perfil,
-        'productos':productos
+        'productos':productos,
+        'dolar': round((productos.valor_prod / dolar["valor"]),2),
     }
     hay_producto_en_carro = Carrito.objects.filter(producto = id)
     if request.method == 'POST':
@@ -233,3 +237,4 @@ def apiPlantas(request):
         'plantas': plantas
     }
     return render(request, 'apiPlantas.html', context)
+

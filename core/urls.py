@@ -18,5 +18,5 @@ urlpatterns = [
         path('inventario/', inventario, name='inventario'),
         path('modificarInventario/<int:id>', modificarInventario, name='modificarInventario'),
         path('eliminarInventario/<int:id>', eliminarInventario, name='eliminarInventario'),
-        path('proximamente/', apiPlantas)
+        path('proximamente/', apiPlantas),
 ]
